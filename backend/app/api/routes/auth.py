@@ -11,7 +11,7 @@ from app.db.session import get_db
 from app.models.enums import UserRole
 from app.models.user import User
 from app.schemas.user import UserCreate, UserLogin
-
+from app.api.dependencies import get_current_user, require_role
 
 router = APIRouter(
     prefix="/auth",
@@ -93,4 +93,35 @@ async def login(
     return {
         "access_token": access_token,
         "token_type": "bearer",
+    }
+
+
+@router.get("/business-only")
+async def business_only(
+    current_user: User = Depends(
+        require_role(UserRole.business_user)
+    ),
+):
+    return {
+        "message": "Business user access granted",
+        "email": current_user.email,
+    }
+
+@router.get("/me")
+async def get_me(current_user: User = Depends(get_current_user)):
+    return {
+        "id": str(current_user.id),
+        "email": current_user.email,
+        "role": current_user.role.value,
+    }
+
+@router.get("/admin-only")
+async def admin_only(
+    current_user: User = Depends(
+        require_role(UserRole.admin)
+    ),
+):
+    return {
+        "message": "Admin access granted",
+        "email": current_user.email,
     }

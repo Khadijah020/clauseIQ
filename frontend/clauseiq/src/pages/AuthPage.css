@@ -1,0 +1,280 @@
+.auth-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  background: #ffffff;
+}
+
+/* ---- form panels ---- */
+
+.auth-form-panel {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s ease-in-out, visibility 0s linear 0s;
+}
+
+.auth-form {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 40px;
+}
+
+.auth-brand {
+  font-size: 15px;
+  font-weight: 700;
+  color: #2044a8;
+  letter-spacing: -0.01em;
+  margin-bottom: 18px;
+}
+
+.auth-brand--light {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.auth-form h1 {
+  margin: 0 0 4px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #0b173f;
+}
+
+.auth-form__hint {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: #76767e;
+}
+
+.auth-form input,
+.auth-form select {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: #1a1a1a;
+  background: #eef0f4;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 13px 14px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+  border-color: #2044a8;
+  background: #fff;
+}
+
+.auth-form button[type="submit"] {
+  margin-top: 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: #2044a8;
+  border: none;
+  border-radius: 999px;
+  padding: 13px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: filter 0.15s ease;
+}
+
+.auth-form button[type="submit"]:hover:not(:disabled) {
+  filter: brightness(1.12);
+}
+
+.auth-form button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-error {
+  margin: 0;
+  font-size: 13px;
+  color: #b3261e;
+}
+
+.auth-mobile-switch {
+  display: none;
+  background: none;
+  border: none;
+  color: #2044a8;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 0 0;
+  text-align: left;
+}
+
+/* sign-in: visible by default, hides the instant the slide finishes
+   passing over it (delay = full transition time) */
+.auth-form-panel--signin {
+  left: 0;
+  z-index: 2;
+  visibility: visible;
+}
+
+/* sign-up: hidden by default, becomes visible only once the overlay
+   has fully covered this spot and is sliding past it (delay = half
+   the transition time, matching the overlay's midpoint) */
+.auth-form-panel--signup {
+  left: 0;
+  z-index: 1;
+  visibility: hidden;
+}
+
+.auth-container.is-active .auth-form-panel--signin {
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform 0.6s ease-in-out, visibility 0s linear 0.3s;
+}
+
+.auth-container.is-active .auth-form-panel--signup {
+  transform: translateX(100%);
+  visibility: visible;
+  transition: transform 0.6s ease-in-out, visibility 0s linear 0.3s;
+}
+
+/* ---- sliding color overlay ---- */
+
+.auth-overlay-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+}
+
+.auth-container.is-active .auth-overlay-container {
+  transform: translateX(-100%);
+}
+
+.auth-overlay {
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  background: linear-gradient(135deg, #0b173f 0%, #2044a8 100%);
+  color: #fff;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.auth-container.is-active .auth-overlay {
+  transform: translateX(50%);
+}
+
+.auth-overlay-panel {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 60px;
+  transition: transform 0.6s ease-in-out;
+}
+
+.auth-overlay-panel h1 {
+  margin: 0 0 12px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.auth-overlay-panel p {
+  margin: 0 0 24px;
+  max-width: 320px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.auth-overlay-panel button {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: transparent;
+  border: 1px solid #fff;
+  border-radius: 999px;
+  padding: 11px 34px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.auth-overlay-panel button:hover {
+  background: #fff;
+  color: #0b173f;
+}
+
+.auth-overlay-panel--left {
+  left: 0;
+  transform: translateX(-20%);
+}
+
+.auth-container.is-active .auth-overlay-panel--left {
+  transform: translateX(0);
+}
+
+.auth-overlay-panel--right {
+  right: 0;
+  transform: translateX(0);
+}
+
+.auth-container.is-active .auth-overlay-panel--right {
+  transform: translateX(20%);
+}
+
+/* ---- mobile: the sliding trick needs real horizontal room, so below
+   768px we stack a single active form and drop the overlay/animation ---- */
+
+@media (max-width: 768px) {
+  .auth-overlay-container {
+    display: none;
+  }
+
+  .auth-form-panel {
+    position: relative;
+    width: 100%;
+    left: 0 !important;
+    top: 0;
+    transform: none !important;
+    visibility: visible !important;
+    display: none;
+  }
+
+  .auth-form-panel--signin {
+    display: flex;
+  }
+
+  .auth-container.is-active .auth-form-panel--signin {
+    display: none;
+  }
+
+  .auth-container.is-active .auth-form-panel--signup {
+    display: flex;
+  }
+
+  .auth-form {
+    padding: 40px 28px;
+  }
+
+  .auth-mobile-switch {
+    display: block;
+  }
+}

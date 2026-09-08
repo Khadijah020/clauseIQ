@@ -29,5 +29,6 @@ class Contract(Base):
         UUID(as_uuid=True), ForeignKey("contracts.id"), nullable=True
     )
     version: Mapped[int] = mapped_column(Integer, default=1)
-
+    
+    raw_text: Mapped[str | None] = mapped_column(String, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
