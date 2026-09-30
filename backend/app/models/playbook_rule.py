@@ -18,6 +18,7 @@ class PlaybookRule(Base):
     standard_language: Mapped[str] = mapped_column(String, nullable=False)
     embedding: Mapped[list[float] | None] = mapped_column(Vector(EMBEDDING_DIM), nullable=True)
     risk_threshold: Mapped[float] = mapped_column(Float, default=0.75)
-
-    updated_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    clean_anchor: Mapped[float | None] = mapped_column(nullable=True)
+    aggressive_anchor: Mapped[float | None] = mapped_column(nullable=True)
+    updated_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

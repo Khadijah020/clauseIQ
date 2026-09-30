@@ -2,11 +2,10 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const HOME_BY_ROLE = {
-  business_user: "/business",
+  business_user: "/business/intake",
   legal_reviewer: "/reviewer/queue",
   admin: "/admin/analytics",
 };
-
 export default function ProtectedRoute({ allowedRoles, children }) {
   const { user, loading } = useAuth();
 

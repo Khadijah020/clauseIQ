@@ -32,3 +32,4 @@ class Contract(Base):
     
     raw_text: Mapped[str | None] = mapped_column(String, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    summary: Mapped[str | None] = mapped_column(String, nullable=True)

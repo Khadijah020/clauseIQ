@@ -16,7 +16,7 @@ class Obligation(Base):
     contract_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("contracts.id"), nullable=False)
 
     obligation_type: Mapped[ObligationType] = mapped_column(Enum(ObligationType), nullable=False)
-    due_date: Mapped[date] = mapped_column(nullable=False)
-    description: Mapped[str] = mapped_column(String, nullable=False)
-
+    # app/models/obligation.py
+    due_date: Mapped[date | None] = mapped_column(nullable=True)
+    period_description: Mapped[str | None] = mapped_column(nullable=True)  # e.g. "5 days after invoice"
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)

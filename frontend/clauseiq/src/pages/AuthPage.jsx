@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import "./AuthPage.css";
+import "../styles/AuthPage.css";
 
 const ROLES = [
   { value: "business_user", label: "Business user" },
@@ -16,7 +16,7 @@ const HOME_BY_ROLE = {
 };
 
 export default function AuthPage() {
-  const [signUpActive, setSignUpActive] = useState(false);
+  const signUpActive = location.pathname === "/signup";
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -89,7 +89,7 @@ finally {
 
   function switchTo(next) {
     setError("");
-    setSignUpActive(next === "signup");
+    navigate(next === "signup" ? "/signup" : "/login");
   }
 
   return (

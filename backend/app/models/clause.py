@@ -8,7 +8,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.session import Base
 
-EMBEDDING_DIM = 768  # match whatever Gemini's text-embedding-004 outputs
+EMBEDDING_DIM = 3072  # match whatever Gemini's text-embedding-004 outputs
 
 
 class Clause(Base):

@@ -1,0 +1,407 @@
+/* ============================================================
+   Design tokens — contract workflow
+   A "case file / ledger" aesthetic: paper background, ink text,
+   one deep-green accent for action, brass reserved for the
+   completion moment, brick red for errors only.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&display=swap");
+
+:root {
+  --paper: #faf9f6;
+  --paper-dim: #f1efe9;
+  --ink: #1c2b33;
+  --ink-soft: #5b6b73;
+  --line: #d8d3c7;
+  --line-strong: #b9b3a4;
+  --accent: #2f6f5e;
+  --accent-dark: #234f42;
+  --brass: #b08d2b;
+  --danger: #a6423a;
+  --danger-bg: #f7e9e7;
+
+  --font-display: "Source Serif 4", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.page-shell {
+  min-height: 100vh;
+  background: var(--paper);
+  font-family: var(--font-body);
+  color: var(--ink);
+  padding: 4rem 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.page-shell__inner {
+  width: 100%;
+  max-width: 520px;
+}
+
+.page-heading {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 2rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 0.4rem 0;
+}
+
+.page-subhead {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  margin: 0 0 1.75rem 0;
+  line-height: 1.5;
+}
+
+.rule {
+  height: 2px;
+  width: 40px;
+  background: var(--brass);
+  margin: 0 0 2rem 0;
+  border: none;
+}
+
+/* ---------- Card ---------- */
+
+.case-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 2rem;
+}
+
+/* ---------- Form fields (ledger-line style) ---------- */
+
+.field-group {
+  margin-bottom: 1.5rem;
+}
+
+.field-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+
+.field-group input[type="text"] {
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid var(--line);
+  background: transparent;
+  padding: 0.5rem 0.1rem;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  color: var(--ink);
+  transition: border-color 0.15s ease;
+}
+
+.field-group input[type="text"]::placeholder {
+  color: var(--line-strong);
+}
+
+.field-group input[type="text"]:focus {
+  outline: none;
+  border-bottom-color: var(--accent);
+}
+
+.field-group input[type="text"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---------- Dropzone ---------- */
+
+.dropzone {
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.dropzone:hover {
+  border-color: var(--accent);
+}
+
+.dropzone:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.dropzone.is-dragging {
+  border-color: var(--accent);
+  background: rgba(47, 111, 94, 0.06);
+}
+
+.dropzone.has-file {
+  border-style: solid;
+  border-color: var(--line);
+  background: var(--paper-dim);
+  padding: 1rem 1.25rem;
+  text-align: left;
+}
+
+.dropzone__prompt {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.dropzone__prompt strong {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.dropzone__file {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.dropzone__file-name {
+  font-size: 0.9rem;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropzone__file-size {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  flex-shrink: 0;
+}
+
+.dropzone__remove {
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.dropzone__remove:hover {
+  color: var(--danger);
+  background: var(--danger-bg);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn-primary {
+  width: 100%;
+  background: var(--accent);
+  color: var(--paper);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.8rem 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 1.75rem;
+  transition: background-color 0.15s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-dark);
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.btn-primary:disabled {
+  background: var(--line-strong);
+  cursor: not-allowed;
+}
+
+/* ---------- Error banner ---------- */
+
+.error-banner {
+  border-left: 3px solid var(--danger);
+  background: var(--danger-bg);
+  color: var(--danger);
+  font-size: 0.88rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin-top: 1.5rem;
+}
+
+/* ---------- Processing / seal ---------- */
+
+.status-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2.5rem 2rem;
+}
+
+.seal {
+  width: 108px;
+  height: 108px;
+  margin-bottom: 1.5rem;
+}
+
+.seal-ring {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.seal-ring--active {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-dasharray: 10 8;
+  stroke-linecap: round;
+  transform-origin: 54px 54px;
+  animation: seal-spin 5s linear infinite;
+}
+
+.seal-mark {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 5;
+}
+
+.seal-mark--success {
+  stroke: var(--brass);
+  stroke-dasharray: 46;
+  stroke-dashoffset: 46;
+  animation: seal-draw 0.5s ease forwards 0.15s;
+}
+
+.seal-mark--error {
+  stroke: var(--danger);
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation: seal-draw 0.4s ease forwards 0.15s;
+}
+
+.seal-mark--attention {
+  stroke: var(--brass);
+  stroke-dasharray: 28;
+  stroke-dashoffset: 28;
+  animation: seal-draw 0.4s ease forwards 0.15s;
+}
+
+.seal-dot--attention {
+  fill: var(--brass);
+  opacity: 0;
+  animation: seal-dot-fade 0.2s ease forwards 0.5s;
+}
+
+@keyframes seal-dot-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+.seal-ring--resolved {
+  stroke: var(--line-strong);
+}
+
+@keyframes seal-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes seal-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seal-ring--active {
+    animation: none;
+  }
+  .seal-mark--success,
+  .seal-mark--error,
+  .seal-mark--attention {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .seal-dot--attention {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+.status-label {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 0.35rem 0;
+}
+
+.status-sublabel {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ---------- Stage list ---------- */
+
+.stage-list {
+  list-style: none;
+  margin: 2rem 0 0 0;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+  border-top: 1px solid var(--line);
+}
+
+.stage-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.1rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+  color: var(--line-strong);
+}
+
+.stage-list li.is-done {
+  color: var(--ink-soft);
+}
+
+.stage-list li.is-current {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.stage-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--line-strong);
+  flex-shrink: 0;
+}
+
+.stage-list li.is-done .stage-dot {
+  background: var(--accent);
+}
+
+.stage-list li.is-current .stage-dot {
+  background: var(--brass);
+}

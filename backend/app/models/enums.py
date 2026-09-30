@@ -14,6 +14,7 @@ class ContractStatus(str, enum.Enum):
     pending_review = "Pending Review"
     approved = "Approved"
     changes_requested = "Changes Requested"
+    failed = "failed"
 
 
 class RedlineStatus(str, enum.Enum):

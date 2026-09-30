@@ -9,3 +9,4 @@ from app.models.notification import Notification
 from app.models.audit_log import AuditLog
 from app.models.comment import Comment
 from app.models.redline import Redline
+from app.models.compliance_flag import ComplianceFlag
